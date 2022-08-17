@@ -1,33 +1,34 @@
 document.getElementById('withdraw-btn').addEventListener('click', function(){
-    const withdrawField = document.getElementById('withdraw-field');
-    const withdrawAmountString = withdrawField.value;
-    const withdrawNewBalance = parseFloat(withdrawAmountString);
 
-    withdrawField.value = '';
+    //call to getInputValueById and get new withdraw amount
+    const withdrawAmount = getInputValueById('withdraw-field');
 
-    if(isNaN(withdrawNewBalance)){
-        alert('You type Worng input.Please provied valid number');
+    //set condtion isnot number return alert message
+    if(isNaN(withdrawAmount)){
+        alert('Please!!! input valid number..');
         return;
     }
 
-    const withdrawOldBalance = document.getElementById('withdraw-total');
-    const withdrawOldBalanceString = withdrawOldBalance.innerText;
-    const widtOldBalance = parseFloat(withdrawOldBalanceString);
-    
+    //call to getTextElement function and get text element
+    const previousTotalWithdraw = getTextElemet('withdraw-total');
 
-    const preveousBalance = document.getElementById('total-balance');
-    const preveousBalanceString = preveousBalance.innerText;
-    const preveousAmount = parseFloat(preveousBalanceString);
+    //get balance elment call getTextElement function and calculate balance
+    const previousBalance = getTextElemet('total-balance');
 
-    if(withdrawNewBalance > preveousAmount){
-        alert('Poor balance!!!Please set current amount');
+    if(previousBalance < withdrawAmount){
+        alert('Not pay able!!! please correct amount');
         return;
     }
 
-    const currentwithdraw = widtOldBalance + withdrawNewBalance;
-    withdrawOldBalance.innerText = currentwithdraw;
+    //call calculate total withdraw and set new total withdraw
+    const newTotalWithdraw = previousTotalWithdraw + withdrawAmount;
 
-    const currentBalacne = preveousAmount - withdrawNewBalance;
-    preveousBalance.innerText = currentBalacne;
+    //set new total withdraw call to a function setTextElement
+    setTextElement('withdraw-total', newTotalWithdraw);
 
+    const newRemainingBalance = previousBalance - withdrawAmount;
+
+    // call setTextElement function
+    setTextElement('total-balance', newRemainingBalance);
+   
 })

@@ -1,20 +1,27 @@
+// add to event handler with deposit button
 document.getElementById('deposit-btn').addEventListener('click', function(){
-    const depositField = document.getElementById('deposit-field');
-    const depositString = depositField.value;
-    const newDepositAmount = parseFloat(depositString);
 
-    //get deposit-Total amont
-    const depositTotalElement = document.getElementById('deposit-Total');
-    const preveiousString = depositTotalElement.innerText;
-    const oldDepostiAmount = parseFloat(preveiousString);
-    depositTotalElement.innerText = oldDepostiAmount + newDepositAmount;
+    //call to getInputValueById and get new deposit amount
+    const newDepostiAmount = getInputValueById('deposit-field');
 
+    //set condtion isnot number return alert message
+    if(isNaN(newDepostiAmount)){
+        alert('Please!!! input valid number..');
+        return;
+    }
 
-    // get total balance
-    const oldbalanceElemen = document.getElementById('total-balance');
-    const oldbalanceStrign = oldbalanceElemen.innerText;
-    const currentBalance = parseFloat(oldbalanceStrign);
-    oldbalanceElemen.innerText = currentBalance + newDepositAmount;
-    depositField.value = '';
-    
+    //call to getTextElement function and get text element
+    const preveousTotalDeposit = getTextElemet('deposit-Total');
+
+    //call calculate total deposit and set new total deposit
+    const newTotalDeposit = preveousTotalDeposit + newDepostiAmount;
+
+    //set new total deposit call to a function setTextElement
+    setTextElement('deposit-Total', newTotalDeposit);
+
+    //get balance elment call getTextElement function and calculate balance
+    const previousBalance = getTextElemet('total-balance');
+    const newBalance = previousBalance + newDepostiAmount;
+    // call setTextElement function 
+    setTextElement('total-balance', newBalance)
 })
